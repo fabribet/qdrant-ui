@@ -1,0 +1,6 @@
+import React from 'react';
+import TopBar from '../TopBar';
+
+export default function MainContainer() {
+  return <TopBar />;
+}

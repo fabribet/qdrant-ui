@@ -1,23 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import './api';
+import { Route, Routes } from 'react-router-dom';
+import MainContainer from './components/MainContainer';
+import Home from './components/Home';
+import NoMatch from './views/NoMatch';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Routes>
+          <Route path="/" element={<MainContainer />}>
+            <Route index element={<Home />} />
+            {/* <Route path="about" element={<About />} /> */}
+            {/* <Route path="dashboard" element={<Dashboard />} /> */}
+
+            {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
       </header>
     </div>
   );
