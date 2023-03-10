@@ -30,7 +30,6 @@ const convertToApiError = (error: unknown) => {
 };
 
 export default abstract class BaseAPI {
-  // eslint-disable-next-line class-methods-use-this
   abstract get moduleUrl(): string;
 
   protected async get(
@@ -58,7 +57,7 @@ export default abstract class BaseAPI {
 
   protected async put(
     url: string,
-    data?: Record<string, unknown>,
+    data?: Record<string, any>,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
     try {
@@ -70,7 +69,7 @@ export default abstract class BaseAPI {
 
   protected async patch(
     url: string,
-    data?: Record<string, unknown>,
+    data?: Record<string, any>,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
     try {
