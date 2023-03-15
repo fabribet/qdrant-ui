@@ -33,6 +33,13 @@ export const PAGES = [
 
 export default function Sidebar() {
   const location = useLocation();
+
+  // Change page title on pathname change (this could be done on a higher component such as the Main container)
+  useEffect(() => {
+    const currentPage = PAGES.find((page) => page.path === location.pathname);
+    document.title = `Qdrant DB UI - ${currentPage?.label}`;
+  }, [location.pathname]);
+
   return (
     <StyledDrawer variant="permanent" anchor="left">
       <Toolbar>
