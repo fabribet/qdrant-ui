@@ -29,6 +29,7 @@ export interface ConfirmationDialogProps {
   text: string;
   onClose: () => void;
   onConfirm: () => void;
+  dangerConfirmation?: boolean;
 }
 
 function BootstrapDialogTitle(props: DialogTitleProps) {
@@ -56,7 +57,7 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
 }
 
 export default function ConfirmationDialog(props: ConfirmationDialogProps) {
-  const { title, text, onClose, onConfirm } = props;
+  const { title, text, onClose, onConfirm, dangerConfirmation } = props;
 
   return (
     <div>
@@ -73,7 +74,12 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onConfirm}>Proceed</Button>
+          <Button
+            onClick={onConfirm}
+            color={dangerConfirmation ? 'error' : undefined}
+          >
+            Proceed
+          </Button>
         </DialogActions>
       </BootstrapDialog>
     </div>
