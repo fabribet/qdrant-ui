@@ -4,6 +4,7 @@ import Home from './components/views/Home';
 import MainContainer from './components/MainContainer';
 import NoMatch from './components/views/NoMatch';
 import CollectionsView from './components/views/Collections';
+import AdministrationView from './components/views/Administration';
 
 export default function AppRoutes() {
   return (
@@ -11,6 +12,7 @@ export default function AppRoutes() {
       <Route path="/" element={<MainContainer />}>
         <Route index element={<Home />} />
         <Route path="collections" element={<CollectionsView />} />
+        <Route path="administration" element={<AdministrationView />} />
 
         {/* Using path="*"" means "match anything", so this route
             acts like a catch-all for URLs that we don't have explicit
