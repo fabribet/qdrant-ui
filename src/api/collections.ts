@@ -1,7 +1,8 @@
 import {
   Collection,
-  CollectionData,
   CollectionName,
+  EditCollectionInput,
+  CreateCollectionInput,
 } from '../types/collections';
 import BaseAPI from './baseAPI';
 
@@ -11,12 +12,13 @@ class CollectionsAPI extends BaseAPI {
   }
 
   async getCollections(): Promise<Array<CollectionName>> {
+    const response = await this.get();
+
     const {
       data: {
         result: { collections },
       },
-    } = await this.get();
-    console.log('received data', collections);
+    } = response;
     return collections;
   }
 
@@ -24,35 +26,28 @@ class CollectionsAPI extends BaseAPI {
     const {
       data: { result },
     } = await this.get(`/${collectionName}`);
-    console.log(result);
     return result;
   }
 
   async deleteCollection(collectionName: string): Promise<boolean> {
-    const {
-      data: { result },
-    } = await this.delete(`/${collectionName}`);
-    return result;
+    const response = await this.delete(`/${collectionName}`);
+    return !!response?.data?.result;
   }
 
   async updateCollection(
     collectionName: string,
-    data: CollectionData
+    data: EditCollectionInput
   ): Promise<boolean> {
-    const {
-      data: { result },
-    } = await this.patch(`/${collectionName}`, data);
-    return result;
+    const response = await this.patch(`/${collectionName}`, data);
+    return !!response?.data?.result;
   }
 
   async createCollection(
     collectionName: string,
-    data: CollectionData
+    data: CreateCollectionInput
   ): Promise<boolean> {
-    const {
-      data: { result },
-    } = await this.put(`/${collectionName}`, data);
-    return result;
+    const response = await this.put(`/${collectionName}`, data);
+    return response?.data?.result || response;
   }
 }
 

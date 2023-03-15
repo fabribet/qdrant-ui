@@ -20,8 +20,8 @@ import {
 } from '@mui/icons-material/';
 import { styled } from '@mui/material/styles';
 
-import CollectionsAPI from '../../api';
 import { CollectionData, CollectionName } from '../../types/collections';
+import { CollectionsAPI } from '../../api';
 import ConfirmationDialog from '../../components/ConfirmationDialog';
 import EditCollectionModal from './EditCollectionModal';
 import CreateCollectionModal from './CreateCollectionModal';
