@@ -12,11 +12,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 
-import './styles.scss';
 import qdrantLogo from '../../svgs/qdrant-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
-
-const drawerWidth = 200;
+import { LogoContainer, StyledDrawer } from './styledComponents';
 
 const HOME_PAGE = {
   label: 'Home',
@@ -36,21 +34,12 @@ export const PAGES = [
 export default function Sidebar() {
   const location = useLocation();
   return (
-    <Drawer
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
+    <StyledDrawer variant="permanent" anchor="left">
       <Toolbar>
         <Link to={HOME_PAGE.path}>
-          <img className="app-logo" src={qdrantLogo} alt="Qdrant Logo" />
+          <LogoContainer>
+            <img className="app-logo" src={qdrantLogo} alt="Qdrant Logo" />
+          </LogoContainer>
         </Link>
       </Toolbar>
       <Divider />
@@ -69,18 +58,6 @@ export default function Sidebar() {
         ))}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
+    </StyledDrawer>
   );
 }
