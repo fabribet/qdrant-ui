@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { TextField } from '@mui/material';
-import { Collection, EditCollectionInput } from '../../types/collections';
+import { Collection, EditCollectionInput } from '../../../types/collections';
 import CollectionModal from './CollectionModal';
 import { getUpdateInputErrors, UpdateInputErrors } from './utils';
 

@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Typography, Box } from '@mui/material';
-import { Collection } from '../../types/collections';
+import { Collection } from '../../../types/collections';
 import CollectionModal from './CollectionModal';
 
 interface EditCollectionModalProps {

@@ -1,5 +1,8 @@
-import { EditCollectionInput, OptimizersConfig } from '../../types/collections';
-import { VectorDistance } from '../../utils/constants';
+import {
+  EditCollectionInput,
+  OptimizersConfig,
+} from '../../../types/collections';
+import { VectorDistance } from '../../../utils/constants';
 import {
   isValidNewCollection,
   getUpdateInputErrors,

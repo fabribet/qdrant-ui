@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Home from './views/Home';
+import Home from './components/views/Home';
 import MainContainer from './components/MainContainer';
-import NoMatch from './views/NoMatch';
-import CollectionsView from './views/Collections';
+import NoMatch from './components/views/NoMatch';
+import CollectionsView from './components/views/Collections';
 
 export default function AppRoutes() {
   return (

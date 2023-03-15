@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { VectorDistance } from '../../../utils/constants';
+import { VectorDistance } from '../../../../utils/constants';
 
 interface SelectProps {
   value: VectorDistance;

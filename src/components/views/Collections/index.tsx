@@ -13,20 +13,20 @@ import {
 } from '@mui/material';
 import { AddCircleOutlineOutlined } from '@mui/icons-material';
 
-import { CollectionsAPI } from '../../api';
+import { CollectionsAPI } from '../../../api';
 import {
   Collection,
   CollectionName,
   EditCollectionInput,
   CreateCollectionInput,
-} from '../../types/collections';
-import ConfirmationDialog from '../../components/ConfirmationDialog';
+} from '../../../types/collections';
+import ConfirmationDialog from '../../ConfirmationDialog';
 import EditCollectionModal from './EditCollectionModal';
 import CreateCollectionModal from './CreateCollectionModal';
 import ViewCollectionModal from './ViewCollectionModal';
-import LoadingBackdrop from '../../components/LoadingBackdrop';
-import CustomSnackbarMsg from '../../components/CustomSnackbarMsg';
-import { SnackbarType } from '../../utils/constants';
+import LoadingBackdrop from '../../LoadingBackdrop';
+import CustomSnackbarMsg from '../../CustomSnackbarMsg';
+import { SnackbarType } from '../../../utils/constants';
 import {
   HoveringDeleteIcon,
   HoveringEditIcon,

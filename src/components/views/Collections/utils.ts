@@ -2,8 +2,8 @@ import {
   CreateCollectionInput,
   EditCollectionInput,
   OptimizersConfig,
-} from '../../types/collections';
-import { VectorDistance } from '../../utils/constants';
+} from '../../../types/collections';
+import { VectorDistance } from '../../../utils/constants';
 
 export const isValidNewCollection = (collectionData: CreateCollectionInput) => {
   const { distance, size } = collectionData.vectors;

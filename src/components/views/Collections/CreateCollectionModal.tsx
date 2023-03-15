@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { TextField, SelectChangeEvent } from '@mui/material';
-import { CreateCollectionInput } from '../../types/collections';
-import { VectorDistance } from '../../utils/constants';
+import { CreateCollectionInput } from '../../../types/collections';
+import { VectorDistance } from '../../../utils/constants';
 import VectorDistanceSelect from './VectorDistanceSelect';
 import CollectionModal from './CollectionModal';
 import { isValidNewCollection, isValidName } from './utils';
