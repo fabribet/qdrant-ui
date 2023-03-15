@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 
 const { REACT_APP_API_URL: BASE_URL, REACT_APP_API_KEY: API_KEY } = process.env;
-console.log('env variables', { BASE_URL, API_KEY });
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -45,7 +44,9 @@ export default abstract class BaseAPI {
 
   protected async post(
     url: string,
-    data?: Record<string, unknown>,
+    // Explicitly setting data values as any to keep the generic method simple.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data?: Record<string, any>,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
     try {
@@ -57,6 +58,8 @@ export default abstract class BaseAPI {
 
   protected async put(
     url: string,
+    // Explicitly setting data values as any to keep the generic method simple.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: Record<string, any>,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
@@ -69,6 +72,8 @@ export default abstract class BaseAPI {
 
   protected async patch(
     url: string,
+    // Explicitly setting data values as any to keep the generic method simple.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: Record<string, any>,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
