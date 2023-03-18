@@ -1,6 +1,10 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 
-const { REACT_APP_API_URL: BASE_URL, REACT_APP_API_KEY: API_KEY } = process.env;
+const {
+  REACT_APP_API_URL: BASE_URL,
+  REACT_APP_API_KEY: API_KEY,
+  REACT_APP_API_TIMEOUT: API_TIMEOUT,
+} = process.env;
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -8,6 +12,7 @@ const axiosInstance: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
     ...(API_KEY ? { 'api-key': API_KEY } : {}),
   },
+  timeout: API_TIMEOUT ? Number(API_TIMEOUT) : 8000,
 });
 
 axiosInstance.interceptors.response.use(
@@ -25,7 +30,6 @@ const convertToApiError = (error: unknown) => {
     return new Error(error.response?.data?.message || error.message);
   }
   throw error;
-  // return toError(error);
 };
 
 export default abstract class BaseAPI {

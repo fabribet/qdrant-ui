@@ -9,12 +9,15 @@ import { SnackbarType } from '../../../utils/constants';
 import PageTitle from '../../PageTitle';
 
 export default function Administration() {
-  const [fetchingLock, setFetchingLock] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [locked, setLocked] = useState<boolean>();
-  const [showNotification, setShowNotification] = useState<boolean>(false);
+  const [notification, setNotification] = useState<{
+    msg: string;
+    type: SnackbarType;
+  } | null>(null);
 
   const closeAlert = useCallback(() => {
-    setShowNotification(false);
+    setNotification(null);
   }, []);
 
   const getLockStatus = useCallback(async () => {
@@ -22,9 +25,12 @@ export default function Administration() {
       const result = await locksAPI.getLock();
       setLocked(result);
     } catch (e) {
-      // as
+      setNotification({
+        msg: 'There was a problem loading the DB lock status',
+        type: SnackbarType.ERROR,
+      });
     } finally {
-      setFetchingLock(false);
+      setLoading(false);
     }
   }, []);
 
@@ -34,6 +40,7 @@ export default function Administration() {
 
   const handleLocking = useCallback(
     async (event: MouseEvent<HTMLElement>, newLockStatus: boolean) => {
+      setLoading(true);
       try {
         await locksAPI.lock({
           write: newLockStatus,
@@ -41,9 +48,17 @@ export default function Administration() {
         });
         // result gives an outdated lock status
         setLocked(newLockStatus);
-        setShowNotification(true);
+        setNotification({
+          msg: 'DB lock updated successfuly',
+          type: SnackbarType.SUCCESS,
+        });
       } catch (e) {
-        //
+        setNotification({
+          msg: 'There was a problem updating the DB lock',
+          type: SnackbarType.ERROR,
+        });
+      } finally {
+        setLoading(false);
       }
     },
     []
@@ -90,13 +105,13 @@ export default function Administration() {
           <LockOpenOutlined />
         </ToggleButton>
       </ToggleButtonGroup>
-      <LoadingBackdrop loading={fetchingLock} />
+      <LoadingBackdrop loading={loading} />
       <CustomSnackbarMsg
-        message={showNotification ? 'DB lock updated successfuly' : undefined}
-        type={SnackbarType.SUCCESS}
+        message={notification?.msg}
+        type={notification?.type}
         onClose={closeAlert}
       />
-      {!fetchingLock && locked == null && (
+      {!loading && locked == null && (
         <Typography color="error" sx={{ marginTop: '15px' }}>
           There was a problem fetching the DB lock. Try refreshing the page.
         </Typography>

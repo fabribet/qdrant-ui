@@ -10,12 +10,13 @@ import { isValidNewCollection, isValidName } from './utils';
 interface CreateCollectionModalProps {
   onSave: (collectionName: string, collection: CreateCollectionInput) => void;
   onClose: () => void;
+  submitting?: boolean;
 }
 
 export default function CreateCollectionModal(
   props: CreateCollectionModalProps
 ) {
-  const { onSave, onClose } = props;
+  const { onSave, onClose, submitting } = props;
   const [collectionName, setCollectionName] = useState<string>('');
   const [inputsValues, setInputsValues] = useState<CreateCollectionInput>({
     vectors: {
@@ -67,7 +68,7 @@ export default function CreateCollectionModal(
 
   const onSubmit = useCallback(async () => {
     if (collectionName) onSave(collectionName, inputsValues);
-  }, [inputsValues]);
+  }, [collectionName, inputsValues]);
 
   return (
     <CollectionModal
@@ -77,6 +78,7 @@ export default function CreateCollectionModal(
       submitButtonText="Create"
       // Feedback could be improved to let the user know why the submission is disabled.
       disableSubmit={!validName || !validCollection}
+      submitting={submitting}
     >
       <TextField
         autoFocus
