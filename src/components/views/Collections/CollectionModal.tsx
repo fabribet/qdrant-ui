@@ -1,11 +1,19 @@
-import { Box, Button, DialogActions, Modal, Typography } from '@mui/material';
-import React from 'react';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  DialogActions,
+  Modal,
+  Typography,
+} from '@mui/material';
+import React, { useCallback } from 'react';
 
 interface CollectionModalProps {
   onClose: () => void;
   onSubmit?: () => void;
   submitButtonText?: string;
   disableSubmit?: boolean;
+  submitting?: boolean;
   title: string;
   children: React.ReactNode;
   columns?: 1 | 2;
@@ -29,15 +37,17 @@ export default function CollectionModal({
   onClose,
   onSubmit,
   disableSubmit = false,
+  submitting,
   submitButtonText = 'Save',
   columns = 1,
   title,
   children,
 }: CollectionModalProps) {
+  const handleClose = useCallback(() => !submitting && onClose(), [submitting]);
   return (
     <Modal
       open={true}
-      onClose={onClose}
+      onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -69,8 +79,18 @@ export default function CollectionModal({
         {/* Only if submit is provided the modal should have actions */}
         {!!onSubmit && (
           <DialogActions sx={{ marginTop: '15px' }}>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button onClick={onSubmit} disabled={disableSubmit}>
+            <Button onClick={handleClose} disabled={submitting}>
+              Cancel
+            </Button>
+            <Button
+              onClick={onSubmit}
+              startIcon={
+                submitting && (
+                  <CircularProgress color="inherit" size={15} thickness={2} />
+                )
+              }
+              disabled={disableSubmit || submitting}
+            >
               {submitButtonText}
             </Button>
           </DialogActions>

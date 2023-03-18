@@ -37,9 +37,9 @@ import {
 
 export default function CollectionsView() {
   const [deletingKey, setDeletingKey] = useState<string | null>();
-  const [editingCollection, setEditingCollection] = useState<string | null>(
-    null
-  );
+  const [editingCollectionName, setEditingCollectionName] = useState<
+    string | null
+  >(null);
   const [viewingCollectionName, setViewingCollectionName] = useState<
     string | null
   >(null);
@@ -80,11 +80,11 @@ export default function CollectionsView() {
   }, []);
 
   useEffect(() => {
-    const collectionName = editingCollection || viewingCollectionName;
+    const collectionName = editingCollectionName || viewingCollectionName;
     if (collectionName) {
       getCollection(collectionName);
     }
-  }, [editingCollection, viewingCollectionName]);
+  }, [editingCollectionName, viewingCollectionName]);
 
   const closeSnackAlert = useCallback(() => {
     setFeedbackMsg(null);
@@ -122,33 +122,39 @@ export default function CollectionsView() {
 
   const updateCollection = useCallback(
     async (data: EditCollectionInput) => {
-      if (!editingCollection) return;
+      if (!editingCollectionName) return;
+      setLoading(true);
       try {
         const result = await CollectionsAPI.updateCollection(
-          editingCollection,
+          editingCollectionName,
           data
         );
         if (result) {
           setSuccessSnackMsg('Collection updated successfully');
-          setEditingCollection(null);
+          setEditingCollectionName(null);
           // Update list
           await getCollections();
         } else {
           setErrorSnackMsg(
-            `There was a problem updating '${editingCollection}'`
+            `There was a problem updating '${editingCollectionName}'`
           );
         }
       } catch (e) {
-        setErrorSnackMsg(`There was a problem updating '${editingCollection}'`);
+        setErrorSnackMsg(
+          `There was a problem updating '${editingCollectionName}'`
+        );
+      } finally {
+        setLoading(false);
       }
     },
-    [editingCollection]
+    [editingCollectionName]
   );
 
   const createCollection = useCallback(
     async (collectionName: string, data: CreateCollectionInput) => {
+      console.log('creating');
+      setLoading(true);
       try {
-        setLoading(true);
         const result = await CollectionsAPI.createCollection(
           collectionName,
           data
@@ -169,7 +175,7 @@ export default function CollectionsView() {
         setLoading(false);
       }
     },
-    [editingCollection]
+    []
   );
 
   useEffect(() => {
@@ -224,7 +230,7 @@ export default function CollectionsView() {
                         </Tooltip>
                         <Tooltip title="Edit">
                           <HoveringEditIcon
-                            onClick={() => setEditingCollection(row.name)}
+                            onClick={() => setEditingCollectionName(row.name)}
                           />
                         </Tooltip>
                         <Tooltip title="Delete">
@@ -272,18 +278,20 @@ export default function CollectionsView() {
           type={feedbackMsg?.type}
           onClose={closeSnackAlert}
         />
-        {editingCollection && !fetchingCollection && collection && (
-          <EditCollectionModal
-            collection={collection}
-            collectionName={editingCollection}
-            onClose={() => setEditingCollection(null)}
-            onSave={updateCollection}
-          />
-        )}
         {creatingCollection && (
           <CreateCollectionModal
+            submitting={loading}
             onClose={() => setCreatingCollection(false)}
             onSave={createCollection}
+          />
+        )}
+        {editingCollectionName && !fetchingCollection && collection && (
+          <EditCollectionModal
+            submitting={loading}
+            collection={collection}
+            collectionName={editingCollectionName}
+            onClose={() => setEditingCollectionName(null)}
+            onSave={updateCollection}
           />
         )}
         {viewingCollectionName && !fetchingCollection && collection && (

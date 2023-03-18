@@ -10,10 +10,11 @@ interface EditCollectionModalProps {
   collectionName: string;
   onSave: (collection: EditCollectionInput) => void;
   onClose: () => void;
+  submitting?: boolean;
 }
 
 export default function EditCollectionModal(props: EditCollectionModalProps) {
-  const { collection, collectionName, onSave, onClose } = props;
+  const { collection, collectionName, onSave, onClose, submitting } = props;
   const [inputsValues, setInputsValues] = useState<EditCollectionInput>({
     optimizers_config: {
       ...collection.config.optimizer_config,
@@ -48,6 +49,7 @@ export default function EditCollectionModal(props: EditCollectionModalProps) {
       onSubmit={onSubmit}
       title={`Edit '${collectionName}' collection`}
       submitButtonText="Save"
+      submitting={submitting}
       disableSubmit={inputErrors.error}
     >
       <TextField
