@@ -83,11 +83,9 @@ describe('CollectionsAPI', () => {
       mock
         .onPut(`/collections/${COLLECTION_NAME}`, COLLECTION_DATA)
         .reply(200, {
-          result: {
-            time: 0,
-            status: 'ok',
-            result: true,
-          },
+          time: 0,
+          status: 'ok',
+          result: true,
         });
 
       const response = await collectionsAPI.createCollection(
@@ -133,11 +131,9 @@ describe('CollectionsAPI', () => {
       mock
         .onPatch(`/collections/${COLLECTION_NAME}`, COLLECTION_DATA)
         .reply(200, {
-          result: {
-            time: 0,
-            status: 'ok',
-            result: true,
-          },
+          time: 0,
+          status: 'ok',
+          result: true,
         });
 
       const response = await collectionsAPI.updateCollection(
@@ -158,11 +154,9 @@ describe('CollectionsAPI', () => {
       mock
         .onPatch(`/collections/${COLLECTION_NAME}`, COLLECTION_DATA)
         .reply(403, {
-          result: {
-            time: 0,
-            status: { error: 'db is locked' },
-            result: null,
-          },
+          time: 0,
+          status: { error: 'db is locked' },
+          result: null,
         });
 
       const result = await collectionsAPI.updateCollection(
@@ -184,11 +178,9 @@ describe('CollectionsAPI', () => {
 
     it('should call axios.delete with the correct url and data and then return the expected data', async () => {
       mock.onDelete(`/collections/${COLLECTION_NAME}`).reply(200, {
-        result: {
-          time: 0,
-          status: 'ok',
-          result: true,
-        },
+        time: 0,
+        status: 'ok',
+        result: true,
       });
 
       const response = await collectionsAPI.deleteCollection(COLLECTION_NAME);
@@ -201,11 +193,9 @@ describe('CollectionsAPI', () => {
 
     it('should handle errors when deleting a collection', async () => {
       mock.onDelete(`/collections/${COLLECTION_NAME}`).reply(403, {
-        result: {
-          time: 0,
-          status: { error: 'db is locked' },
-          result: null,
-        },
+        time: 0,
+        status: { error: 'db is locked' },
+        result: null,
       });
 
       const result = await collectionsAPI.deleteCollection(COLLECTION_NAME);
