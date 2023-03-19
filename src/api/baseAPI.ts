@@ -6,7 +6,7 @@ const {
   REACT_APP_API_TIMEOUT: API_TIMEOUT,
 } = process.env;
 
-const axiosInstance: AxiosInstance = axios.create({
+export const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -22,6 +22,7 @@ axiosInstance.interceptors.response.use(
       'There was an error while running the request',
       error.message
     );
+    return error;
   }
 );
 
@@ -68,7 +69,7 @@ export default abstract class BaseAPI {
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse> {
     try {
-      return await axiosInstance.put(`${this.moduleUrl}${url}`, data, config);
+      return axiosInstance.put(`${this.moduleUrl}${url}`, data, config);
     } catch (error) {
       throw convertToApiError(error);
     }

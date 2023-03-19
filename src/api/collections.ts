@@ -6,7 +6,7 @@ import {
 } from '../types/collections';
 import BaseAPI from './baseAPI';
 
-class CollectionsAPI extends BaseAPI {
+export class CollectionsAPI extends BaseAPI {
   get moduleUrl() {
     return 'collections';
   }
@@ -31,7 +31,7 @@ class CollectionsAPI extends BaseAPI {
 
   async deleteCollection(collectionName: string): Promise<boolean> {
     const response = await this.delete(`/${collectionName}`);
-    return !!response?.data?.result;
+    return !!response?.data?.result?.result === true;
   }
 
   async updateCollection(
@@ -39,7 +39,7 @@ class CollectionsAPI extends BaseAPI {
     data: EditCollectionInput
   ): Promise<boolean> {
     const response = await this.patch(`/${collectionName}`, data);
-    return !!response?.data?.result;
+    return !!response?.data?.result?.result === true;
   }
 
   async createCollection(
@@ -47,7 +47,7 @@ class CollectionsAPI extends BaseAPI {
     data: CreateCollectionInput
   ): Promise<boolean> {
     const response = await this.put(`/${collectionName}`, data);
-    return response?.data?.result || response;
+    return response?.data?.result?.result === true;
   }
 }
 
