@@ -152,7 +152,6 @@ export default function CollectionsView() {
 
   const createCollection = useCallback(
     async (collectionName: string, data: CreateCollectionInput) => {
-      console.log('creating');
       setLoading(true);
       try {
         const result = await CollectionsAPI.createCollection(

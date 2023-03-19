@@ -31,7 +31,7 @@ export class CollectionsAPI extends BaseAPI {
 
   async deleteCollection(collectionName: string): Promise<boolean> {
     const response = await this.delete(`/${collectionName}`);
-    return !!response?.data?.result?.result === true;
+    return response?.data?.result === true;
   }
 
   async updateCollection(
@@ -39,7 +39,7 @@ export class CollectionsAPI extends BaseAPI {
     data: EditCollectionInput
   ): Promise<boolean> {
     const response = await this.patch(`/${collectionName}`, data);
-    return !!response?.data?.result?.result === true;
+    return response?.data?.result === true;
   }
 
   async createCollection(
@@ -47,7 +47,7 @@ export class CollectionsAPI extends BaseAPI {
     data: CreateCollectionInput
   ): Promise<boolean> {
     const response = await this.put(`/${collectionName}`, data);
-    return response?.data?.result?.result === true;
+    return response?.data?.result === true;
   }
 }
 
