@@ -38,6 +38,9 @@ export const PAGES = [
   },
 ];
 
+/**
+ * Main navigation bar of the App. Allows the user to navigate through the different pages/views.
+ */
 export default function Sidebar() {
   const location = useLocation();
 

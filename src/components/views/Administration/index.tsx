@@ -8,7 +8,7 @@ import CustomSnackbarMsg from '../../CustomSnackbarMsg';
 import { SnackbarType } from '../../../utils/constants';
 import PageTitle from '../../PageTitle';
 
-export default function Administration() {
+export default function AdministrationView() {
   const [loading, setLoading] = useState<boolean>(true);
   const [locked, setLocked] = useState<boolean>();
   const [notification, setNotification] = useState<{
@@ -42,11 +42,11 @@ export default function Administration() {
     async (event: MouseEvent<HTMLElement>, newLockStatus: boolean) => {
       setLoading(true);
       try {
-        await locksAPI.lock({
+        await locksAPI.setLock({
           write: newLockStatus,
           errorMessage: 'DB is currently locked',
         });
-        // result gives an outdated lock status
+        // result of `locksAPI.setLock` gives an outdated lock status
         setLocked(newLockStatus);
         setNotification({
           msg: 'DB lock updated successfuly',

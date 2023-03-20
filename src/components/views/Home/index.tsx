@@ -1,7 +1,7 @@
 import React from 'react';
 import PageTitle from '../../PageTitle';
 
-export default function Home() {
+export default function HomeView() {
   return (
     <div>
       <PageTitle title="Qdrant Simplistic UI" />

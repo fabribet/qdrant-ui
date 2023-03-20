@@ -33,6 +33,9 @@ const getModalBoxStyle = (columns: 1 | 2) => ({
   maxHeight: '90%',
 });
 
+/**
+ * Creates a Modal window that could have two actions (cancel and confirm).
+ */
 export default function CollectionModal({
   onClose,
   onSubmit,

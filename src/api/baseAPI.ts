@@ -10,6 +10,8 @@ export const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    // This is an unsafe way of using the API_KEY. It should not be stored in the Front-end, and have a middleware
+    // back-end/server (better with authentication) that works as a proxy and has the API_KEY.
     ...(API_KEY ? { 'api-key': API_KEY } : {}),
   },
   timeout: API_TIMEOUT ? Number(API_TIMEOUT) : 8000,

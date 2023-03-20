@@ -1,5 +1,8 @@
 import BaseAPI from './baseAPI';
 
+/**
+ * API related to the Database lock.
+ */
 class LocksAPI extends BaseAPI {
   get moduleUrl() {
     return 'locks';
@@ -14,7 +17,7 @@ class LocksAPI extends BaseAPI {
     return write;
   }
 
-  async lock({
+  async setLock({
     write,
     errorMessage,
   }: {

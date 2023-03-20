@@ -105,6 +105,7 @@ export default function CollectionsView() {
 
   const deleteCollection = useCallback(async () => {
     if (!deletingKey) return;
+    setLoading(true);
     try {
       const result = await CollectionsAPI.deleteCollection(deletingKey);
       if (result) {
@@ -117,6 +118,8 @@ export default function CollectionsView() {
       }
     } catch (e) {
       setErrorSnackMsg(`There was a problem deleting '${deletingKey}'`);
+    } finally {
+      setLoading(false);
     }
   }, [deletingKey]);
 
@@ -267,6 +270,7 @@ export default function CollectionsView() {
           <ConfirmationDialog
             title="Confirm deletion"
             text="Are you sure you want to delete the record? Once done, there is no going back."
+            confirming={loading}
             onClose={() => setDeletingKey(null)}
             onConfirm={deleteCollection}
             dangerConfirmation

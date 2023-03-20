@@ -8,6 +8,9 @@ interface SelectProps {
   error?: boolean;
 }
 
+/**
+ * Dropdown to choose between the different Vector distances.
+ */
 export default function VectorDistanceSelect({
   value,
   onChange,

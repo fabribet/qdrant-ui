@@ -9,6 +9,10 @@ interface CustomSnackbarMsgProps {
   duration?: number;
 }
 
+/**
+ * Notification to give feedback to the user about successful actions or errors.
+ * See https://mui.com/material-ui/react-snackbar/
+ */
 export default function CustomSnackbarMsg({
   message,
   onClose,
