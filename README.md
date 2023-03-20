@@ -43,11 +43,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 A docker compose configuration, together with a npm script for each environment was set in order to deploy the app to production or run it in dev mode (with hot reload) together with the Qdrant DB container. In order to run the following commands you need to make sure you have [Docker](https://docs.docker.com/get-docker/) installed in your system. To do this you can run:
 
-### `npm run start:docker`
+### `npm run start:docker:dev`
 
 This is just like running `npm run start` but it will do so inside a container and will spin up a Qdrant db with it.
 
-### `npm run deploy:docker`
+### `npm run docker:deploy`
 
 This command will create a production build and serve the app from a container, also together with a Qdrant db.
 
