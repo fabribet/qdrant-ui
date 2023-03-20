@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  frontend:
+    image: qdrant-ui
+    build:
+      dockerfile: Dockerfile.dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - .:/app
