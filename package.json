@@ -25,8 +25,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:docker": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up",
-    "deploy:docker": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up",
+    "docker:start:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up",
+    "docker:build:prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml build --no-cache",
+    "docker:start:prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml up",
+    "deploy:docker": "npm run docker:build:prod && npm run docker:start:prod",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
