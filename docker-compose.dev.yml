@@ -2,6 +2,9 @@ version: '3'
 
 services:
   frontend:
+    extends:
+      file: docker-compose.yml
+      service: frontend
     image: qdrant-ui-dev
     build:
       dockerfile: Dockerfile.dev
@@ -9,3 +12,8 @@ services:
       - CHOKIDAR_USEPOLLING=true
     volumes:
       - .:/app
+      - /app/node_modules
+  db:
+    extends:
+      file: docker-compose.yml
+      service: db
