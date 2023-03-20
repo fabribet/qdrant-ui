@@ -2,7 +2,7 @@ version: '3'
 
 services:
   frontend:
-    image: qdrant-ui
+    image: qdrant-ui-dev
     build:
       dockerfile: Dockerfile.dev
     environment:
