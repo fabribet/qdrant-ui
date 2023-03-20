@@ -5,6 +5,9 @@ import {
 } from '../../../types/collections';
 import { VectorDistance } from '../../../utils/constants';
 
+/**
+ * Checks that the provided collection data is valid to create a new record.
+ */
 export const isValidNewCollection = (collectionData: CreateCollectionInput) => {
   const { distance, size } = collectionData.vectors;
   return (
@@ -14,14 +17,24 @@ export const isValidNewCollection = (collectionData: CreateCollectionInput) => {
   );
 };
 
+/**
+ * Defines an array of colection fields that are allowed to be null.
+ */
 export const NULLABLE_FIELDS: Array<keyof OptimizersConfig> = [
   'memmap_threshold',
   'max_segment_size',
 ];
+
+/**
+ * Defines an array of collection fields that accept a floating point.
+ */
 export const FIELDS_ACCEPTING_FLOAT: Array<keyof OptimizersConfig> = [
   'deleted_threshold',
 ];
 
+/**
+ * Checks if the provided field name has valid value.
+ */
 const isValidFieldEdition = (
   field: keyof OptimizersConfig,
   value: number | null
@@ -48,6 +61,10 @@ export interface UpdateInputErrors {
   optimizers_config: ToBoolean<OptimizersConfig>;
   error: boolean;
 }
+
+/**
+ * Checks all the fields of a collection update and returns if there is an error by providing the invalid field.
+ */
 export const getUpdateInputErrors = (
   collectionData?: EditCollectionInput
 ): UpdateInputErrors => {
@@ -72,6 +89,9 @@ export const getUpdateInputErrors = (
 };
 
 const ALPHANUMERIC_UNDERSCORE_REGEXP = /^\w+$/;
+/**
+ * Checks if that provided collection name is valid.
+ */
 export const isValidName = (name: string) => {
   return name.length > 2 && ALPHANUMERIC_UNDERSCORE_REGEXP.test(name);
 };

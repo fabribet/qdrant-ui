@@ -6,6 +6,9 @@ import {
 } from '../types/collections';
 import BaseAPI from './baseAPI';
 
+/**
+ * API related to collection entity.
+ */
 export class CollectionsAPI extends BaseAPI {
   get moduleUrl() {
     return 'collections';

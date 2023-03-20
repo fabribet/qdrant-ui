@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -8,6 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import { CircularProgress } from '@mui/material';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -29,6 +30,7 @@ export interface ConfirmationDialogProps {
   text: string;
   onClose: () => void;
   onConfirm: () => void;
+  confirming?: boolean;
   dangerConfirmation?: boolean;
 }
 
@@ -56,27 +58,45 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
   );
 }
 
+/**
+ * Used to confirm an action. It will show a prompt for the user to proceed or cancel. If the action
+ * is dangerous, the confirm button can be set to red.
+ * See https://mui.com/material-ui/react-dialog/#customization
+ */
 export default function ConfirmationDialog(props: ConfirmationDialogProps) {
-  const { title, text, onClose, onConfirm, dangerConfirmation } = props;
+  const { title, text, onClose, onConfirm, confirming, dangerConfirmation } =
+    props;
+  const handleClose = useCallback(() => !confirming && onClose(), [confirming]);
 
   return (
     <div>
       <BootstrapDialog
-        onClose={onClose}
+        onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={true}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={onClose}>
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        >
           {title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>{text}</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onClose} disabled={confirming}>
+            Cancel
+          </Button>
           <Button
             onClick={onConfirm}
             color={dangerConfirmation ? 'error' : undefined}
+            disabled={confirming}
+            startIcon={
+              confirming && (
+                <CircularProgress color="inherit" size={15} thickness={2} />
+              )
+            }
           >
             Proceed
           </Button>

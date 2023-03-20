@@ -43,7 +43,7 @@ describe('LocksAPI', () => {
     });
   });
 
-  describe('lock', () => {
+  describe('setLock', () => {
     const LOCK_DATA = {
       errorMessage: 'the message',
       write: true,
@@ -59,7 +59,7 @@ describe('LocksAPI', () => {
         },
       });
 
-      const response = await locksAPI.lock(LOCK_DATA);
+      const response = await locksAPI.setLock(LOCK_DATA);
 
       expect(response).toEqual({
         write: LOCK_DATA.write,
@@ -73,7 +73,7 @@ describe('LocksAPI', () => {
         .onPost('locks')
         .reply(403, { status: { error: 'the message' }, result: {} });
 
-      await expect(locksAPI.lock(LOCK_DATA)).rejects.toThrow();
+      await expect(locksAPI.setLock(LOCK_DATA)).rejects.toThrow();
       expect(mock.history.post[0].url).toEqual('locks');
     });
   });
